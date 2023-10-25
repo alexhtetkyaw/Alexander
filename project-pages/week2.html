@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    <link rel="icon" href="../assets/images/ak.jpg" />
+		<title>How to Make Alex Kyaw </title>
+    <meta name="description" content="A portfolio for how to make almost everything">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="stylesheet" href="../css/layoutpages.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+
+		<script defer src="../js/script.js"></script>
+	</head>
+  <body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <a class="nav-title-link" href="../index.html">
+        <span class="nav-title"> Made By <br> Alex </span>
+        </a>
+      </a>
+    </div>
+
+    <!-- MAIN PAGE CONTENT -->
+    <div id="main-content">
+
+      <!-- PROJECT HEADER -->
+      <div id="project-header">
+        <div class="main-title">Simon Says (Serial Communication)</div>
+        <div class="body-text">A LED that only listens to what simons says </div>
+        <div id="project-header-center">
+             <image class="project-header-image" src="../assets\week2\gif1.gif">
+        </div>    
+      </div>     <br>
+
+      <!-- PROJECT DETAILS -->
+      <div id="project-details">
+        <div class="subheader-text">Project Description</div>
+        <div class="project-details-content">
+          <div class="body-text"> Simons Says is a popular game that requires participants to listening and follow instructions. The concept of the game is used to inspired this week's project for embebbed programming.   </div>
+          <div class="body-text"> In the game, everyone have to follow the instruction that simon says. For example The phrase 'Simon says' is accompanied by an action or directive, like 'Simon says touch your nose' or 'Simon says jump in place.' Participants are expected to execute the given instruction solely when preceded by the phrase 'Simon says'.
+            Participants must follow the instructions only when "Simon" precedes the command with "Simon says." 
+            If someone does the action without "Simon says" before the command, they are "out" of the game.
+          </div>
+          <div class="body-text"> 
+            Similarly, in this embedded programming project, I created an interactive LED that will respond to specific commands only when preceded by the phrase "Simon says."  
+            The LED act as a visual indicator of the program, turning on, red, blue, green or off based on the instructions given. 
+            The user interacts with the program by providing input through serial communication via a keyboard
+          </div>
+        </div>
+      </div>     <br>
+
+      <!-- IMAGE GALLERY -->
+      <div id="project-gallery">
+
+        <div class="subheader-text">Final Documentation</div> 
+        <div id="project-header-center">
+            <video class="project-header-image" controls src="../assets/week2/video2.mp4" type="video/mp4">   </video> <br>
+              <span class="image-caption"> Full Video of the GIF above
+              </span>
+        </div>
+
+        <div class="subheader-text">Serial Communcation</div> 
+          <div id="project-header-center">
+              <video class="project-header-image" controls src="../assets/week2/video1.5.mp4" type="video/mp4">   </video> <br>
+                <span class="image-caption"> Implementing a chat-bot like response system in the serial monitor interface. This is done to ensure that the user can keep track of what they have input and what the program have output. 
+                  When the user doesn't include the key phrase "simon says" the program prints a "sorry" message. When the user include the key phrase "simon says" the program prints an execution message.
+                </span>
+          </div>
+
+        <div class="subheader-text">Getting the NEO Pixel to change color</div>
+          <div id="project-header-center">
+              <video class="project-header-image" controls src="../assets/week2/video1.mp4" type="video/mp4"> </video>  <br>
+                <span class="image-caption"> Since my goal is to get it to change color based on simon's instruction, I need to make sure that I can set different RGB values.
+                </span>
+          </div>
+
+        <div class="subheader-text">Working with the NEO Pixel</div>
+        <div class="project-gallery-content">
+          <div class="gallery-image-container half-width">
+            <img src="../assets/week2/process1.5.jpg" class="gallery-image">
+            <span class="image-caption">Working together with my friends at the Architecture section to help each other</span>
+          </div>
+          <div class="gallery-image-container half-width">
+            <img src="../assets/week2/process1.jpg" class="gallery-image">
+            <span class="image-caption"> Sample testing script for serial communcation, and changing rgb values in the NEO pixel</span>
+          </div> <br>
+        </div>
+
+          <div class="subheader-text">Working the LED in RP2040 </div>
+          <div id="project-header-center">
+                <video class="project-header-image" controls src="../assets/week2/video3.mp4" type="video/mp4"> </video> <br>
+                  <span class="image-caption">Just testing with the LED (pin 11) blinking to make sure that I have connected the board correctly to my laptop. 
+                  </span>
+          </div>
+      
+          <div class="subheader-text">Working XIAO/SEED RP2040</div>
+          <div class="project-gallery-content">
+            <div class="gallery-image-container half-width">
+              <img src="../assets/week2/process1.59.jpg" class="gallery-image">
+              <span class="image-caption">First Time working with XIAO SEED RP2040, I picked this because  a friend of mine is also using this</span>
+            </div>
+            <div class="gallery-image-container half-width">
+              <img src="../assets/week2/process2.jpg" class="gallery-image">
+              <span class="image-caption">Reading the datasheet helped me figure out that there's pin for the neopixel, and also the LED and power</span>
+            </div> <br>
+          </div>
+          
+          <div class="subheader-text">Coding in Arduino vs MicroPython</div>
+          <div >
+            <div class="body-text"> Arduino Code -> I have been using Arduino for doing hardware and I actually like using this better than python  </div>
+            <pre>
+              <code>
+                #include <Adafruit_NeoPixel.h>
+
+                  int Power = 11;
+                  int PIN = 12;
+                  #define NUMPIXELS 1
+                  
+                  Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+                  uint32_t currentColor = pixels.Color(255, 255, 255);  // Initial color: White
+                  bool isOn = true;  // Initial state: On
+                  String command;
+                  
+                  void setup() {
+                    pixels.begin();
+                    pinMode(Power, OUTPUT);
+                    digitalWrite(Power, HIGH);
+                    Serial.begin(9600);
+                  }
+                  
+                  void loop() {
+                  
+                      manualInput();  // Read the serial input as a String
+                    
+                     // Serial.print("Received command: ");
+                     // Serial.println(command);
+                      command.toLowerCase();
+                      // Set the pixel color based on the serial command
+                      if (command.equals("simon says red")) {
+                        currentColor = pixels.Color(255, 0, 0);  // Red color
+                        isOn = true;
+                        //Serial.println("Light is red now");
+                      } else if (command.equals("simon says green")) {
+                        currentColor = pixels.Color(0, 255, 0);  // Green color
+                        isOn = true;
+                       // Serial.println("Light is green now");
+                      } else if (command.equals("simon says blue")) {
+                        currentColor = pixels.Color(0, 0, 255);  // Blue color
+                        isOn = true;
+                      //  Serial.println("Light is blue now");
+                      } else if (command.equals("simon says off")) {
+                        // Turn off
+                        currentColor = pixels.Color(0, 0, 0);  // (off)
+                        isOn = false;
+                      //  Serial.println("Light is off now");
+                      } else if (command.equals("simon says on")) {
+                        // Turn on with white color
+                        currentColor = pixels.Color(255, 255, 255);  // White color
+                        isOn = true;
+                      }
+                    if (isOn) { //ChatGPT helped me with this if else statment
+                      // Clear the pixel before setting a new color
+                      pixels.clear();
+                      pixels.setPixelColor(0, currentColor);  // Set the current color
+                      pixels.show();  // Update the pixel color
+                    } else {
+                      // Completely turn off
+                      pixels.clear();
+                      pixels.show();
+                    }
+                  }
+                  
+                  
+                    void manualInput(){ 
+                      if (Serial.available()){
+                        command = Serial.readStringUntil('\n');
+                        Serial.println("Input: "+ command);
+                        command.toLowerCase();
+                        String first5Chars = command.substring(0, 5);
+                        String afterChars = command.substring(11);
+                        if (first5Chars.equals("simon") ){   // check if the first five words are simon
+                          Serial.println("Output: Hi Simon, I can make the LED "+ afterChars);
+                      }
+                        else {
+                        Serial.println("Output: Sorry stranger, I only listen to Simon");
+                        }
+                    }
+                    }
+                  
+              </code>
+            </pre>
+          </div>  
+          <div class="body-text"> MicroPython -> New to micropython, I like python. But might stick to Arduino for now for hardware stuff  </div>   
+          <div>
+            <pre>
+              <code>
+                import neopixel
+                import machine
+                import time
+                
+                PIN = 12  # Pin where the NeoPixel is connected
+                NUMPIXELS = 1
+                pixels = neopixel.NeoPixel(machine.Pin(PIN), NUMPIXELS)
+                currentColor = (255, 255, 255)  # Initial color: White
+                isOn = True  # Initial state: On
+                
+                def setup():
+                    global currentColor, isOn
+                    pixels[0] = currentColor
+                    pixels.write()
+                    isOn = True
+                    print("Setup complete")
+                
+                def manualInput():
+                    global currentColor, isOn
+                    if uart.any():
+                        command = uart.readline()
+                        print("Input:", command)
+                        command = command.decode().strip().lower()
+                        first5Chars = command[:5]
+                        afterChars = command[11:]
+                        if first5Chars == "simon":
+                            print("Output: Hi Simon, I can make the LED", afterChars)
+                        else:
+                            print("Output: Sorry stranger, I only listen to Simon")
+                
+                def loop():
+                    global currentColor, isOn
+                    manualInput()
+                    
+                    if command == "simon says red":
+                        currentColor = (255, 0, 0)
+                        isOn = True
+                    elif command == "simon says green":
+                        currentColor = (0, 255, 0)
+                        isOn = True
+                    elif command == "simon says blue":
+                        currentColor = (0, 0, 255)
+                        isOn = True
+                    elif command == "simon says off":
+                        currentColor = (0, 0, 0)
+                        isOn = False
+                    elif command == "simon says on":
+                        currentColor = (255, 255, 255)
+                        isOn = True
+                
+                    if isOn:
+                        pixels[0] = currentColor
+                        pixels.write()
+                    else:
+                        pixels[0] = (0, 0, 0)
+                        pixels.write()
+                
+                uart = machine.UART(0, baudrate=9600, tx=1, rx=3)  # UART initialization
+                setup()
+                
+                while True:
+                    loop()
+                    time.sleep(0.1)
+              </code>
+            </pre>  
+      </div>     
+
+      </div>
+
+
+      
+    </div>
+
+
+
+
+
+    <!-- FOOTER -->
+    <div id="footer">
+      <div class="body-text"> This Website is build using the help of ChatGPT and ndoherty for quick CSS styling and template </div>
+      <a class="icon-link" target="_blank" href="https://www.instagram.com/arch.htet/">
+        <image src="../assets/icons/instagram.svg" class="footer-icon"/>
+      </a>
+    </div>
+
+	</body>
+</html>
+
